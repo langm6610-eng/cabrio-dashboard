@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b0c0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cabrio">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+<title>Cabrio Dashboard</title>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 6h2.5v12H6zM19 6v12L9.5 12z"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M15.5 6H18v12h-2.5zM5 6l9.5 6L5 18z"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM12 4v16"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8z"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></symbol>
+</svg>
+
+<div id="app" data-view="dashboard">
+  <main id="views">
+
+    <section id="map-panel" class="panel">
+      <div id="map"></div>
+      <div class="hud speed" aria-live="off">
+        <div><span id="speed">–</span><small>km/h</small></div>
+        <div class="acc" id="acc">GPS sucht …</div>
+      </div>
+      <div class="hud ctrl">
+        <button class="rbtn" id="zoom-in" aria-label="Vergrößern"><svg class="s"><use href="#i-plus"/></svg></button>
+        <button class="rbtn" id="zoom-out" aria-label="Verkleinern"><svg class="s"><use href="#i-minus"/></svg></button>
+        <button class="rbtn accent" id="recenter" aria-label="Auf Standort zentrieren" hidden><svg class="s"><use href="#i-locate"/></svg></button>
+      </div>
+      <div id="gps-msg" class="overlay" hidden>
+        <p id="gps-text"></p>
+        <button class="pill" id="gps-retry">Standort erneut anfragen</button>
+      </div>
+    </section>
+
+    <section id="music-panel" class="panel">
+      <div class="music-art">
+        <div class="cover" id="cover"><svg class="s big"><use href="#i-music"/></svg></div>
+      </div>
+      <div class="music-side">
+        <div class="meta">
+          <div class="title" id="title">Keine Wiedergabe</div>
+          <div class="artist" id="artist">Spotify ist noch nicht verbunden</div>
+        </div>
+        <div class="progress">
+          <span id="t-cur">0:00</span>
+          <div class="bar"><i id="bar-fill"></i></div>
+          <span id="t-dur">0:00</span>
+        </div>
+        <div class="controls">
+          <button class="cbtn small" id="b-shuffle" aria-label="Shuffle" disabled><svg class="s"><use href="#i-shuffle"/></svg></button>
+          <button class="cbtn" id="b-prev" aria-label="Zurück" disabled><svg class="f"><use href="#i-prev"/></svg></button>
+          <button class="cbtn main" id="b-play" aria-label="Wiedergabe" disabled><svg class="f"><use href="#i-play"/></svg></button>
+          <button class="cbtn" id="b-next" aria-label="Weiter" disabled><svg class="f"><use href="#i-next"/></svg></button>
+          <button class="cbtn small" id="b-repeat" aria-label="Wiederholen" disabled><svg class="s"><use href="#i-repeat"/></svg></button>
+        </div>
+        <div class="status-row">
+          <span class="chip" id="sp-status">Spotify: nicht verbunden</span>
+        </div>
+        <div class="music-extra">
+          <div class="row"><span>Gerät</span><b id="sp-device">–</b></div>
+          <div class="row"><span>Wiedergabeliste</span><b id="sp-playlist">–</b></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav id="nav" aria-label="Ansichten">
+    <button class="nbtn" data-view="dashboard"><svg class="s"><use href="#i-dash"/></svg><span>Dashboard</span></button>
+    <button class="nbtn" data-view="karte"><svg class="s"><use href="#i-map"/></svg><span>Karte</span></button>
+    <button class="nbtn" data-view="musik"><svg class="s"><use href="#i-music"/></svg><span>Musik</span></button>
+  </nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
