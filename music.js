@@ -1,4 +1,4 @@
-import * as sp from './spotify.js';
+import * as sp from './spotify.js?v=5';
 
 const $ = s => document.querySelector(s);
 const E = {

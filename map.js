@@ -1,4 +1,4 @@
-import { CONFIG } from './config.js';
+import { CONFIG } from './config.js?v=5';
 
 const $ = s => document.querySelector(s);
 let map, marker, arrow, watchId = null;

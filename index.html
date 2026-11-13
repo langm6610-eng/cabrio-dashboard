@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-v="5">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=5">
 <title>Cabrio Dashboard</title>
 </head>
 <body>
@@ -83,6 +83,7 @@
         <div class="music-extra">
           <button class="row" id="sp-device-row"><span>Gerät</span><b id="sp-device">–</b></button>
           <div class="row"><span>Wiedergabeliste</span><b id="sp-playlist">–</b></div>
+          <div class="row"><span>Stand</span><b id="ver">–</b></div>
           <button class="row" id="sp-disconnect"><span>Spotify</span><b>Verbindung trennen</b></button>
         </div>
       </div>
@@ -124,6 +125,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script type="module" src="app.js"></script>
+<script type="module" src="app.js?v=5"></script>
 </body>
 </html>

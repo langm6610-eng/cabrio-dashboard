@@ -1,5 +1,5 @@
-import { initMap, startGps, stopGps, resizeMap } from './map.js';
-import { init as initMusic } from './music.js';
+import { initMap, startGps, stopGps, resizeMap } from './map.js?v=5';
+import { init as initMusic } from './music.js?v=5';
 
 const app = document.getElementById('app');
 const VIEWS = ['dashboard', 'karte', 'musik'];
@@ -34,3 +34,8 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('orientationchange', () => setTimeout(resizeMap, 300));
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+// Versionsanzeige (hilft zu erkennen, ob alle Dateien aktuell sind)
+const css = getComputedStyle(document.documentElement).getPropertyValue('--build').replace(/["' ]/g, '') || 'alt';
+const ver = document.getElementById('ver');
+if (ver) ver.textContent = 'Seite ' + (document.documentElement.dataset.v || 'alt') + ' · Stil ' + css + ' · Code 5';

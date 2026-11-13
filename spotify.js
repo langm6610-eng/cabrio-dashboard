@@ -1,4 +1,4 @@
-import { CONFIG } from './config.js';
+import { CONFIG } from './config.js?v=5';
 
 const LS = { tok: 'sp_tokens', ver: 'sp_verifier', st: 'sp_state' };
 const API = 'https://api.spotify.com/v1';

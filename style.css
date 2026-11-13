@@ -1,7 +1,7 @@
 :root{
   --bg:#0b0c0e; --panel:#14161a; --raised:#1d2026; --line:#2a2e36;
   --text:#f2f4f7; --dim:#8a919c; --accent:#4a9dff; --good:#4ade80; --mid:#fbbf24; --bad:#f87171;
-  --btn:clamp(52px,11vmin,78px);
+  --btn:clamp(52px,11vmin,78px); --build:"5";
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);overflow:hidden;overscroll-behavior:none;
@@ -135,4 +135,14 @@ button.row:active{background:var(--raised)}
 .mp-head h2{margin:0;font-size:24px}
 @media (orientation:landscape){
   #app[data-view=musik] .mp-now{flex-direction:row;align-items:center;gap:24px;padding:20px 20px 30px}
+}
+
+/* Cover: Größe unabhängig von verschachtelten Prozenthöhen (iOS-sicher) */
+@supports (container-type:size){
+  .music-art{container-type:size}
+  .cover{width:min(100cqw,100cqh);height:min(100cqw,100cqh);max-width:none}
+}
+@media (orientation:landscape){
+  #app[data-view=musik] .music-art{container-type:normal;aspect-ratio:1}
+  #app[data-view=musik] .cover{width:auto;height:100%;max-width:100%;aspect-ratio:1}
 }
