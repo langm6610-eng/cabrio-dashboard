@@ -3,7 +3,8 @@ import { CONFIG } from './config.js';
 const LS = { tok: 'sp_tokens', ver: 'sp_verifier', st: 'sp_state' };
 const API = 'https://api.spotify.com/v1';
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
-const SCOPES = 'user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-read-private';
+const SCOPES = 'user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-read-private user-library-read';
+const SCOPE_V = 2; // erhöhen, wenn neue Berechtigungen nötig sind;
 
 const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const rand = n => b64url(crypto.getRandomValues(new Uint8Array(n)));
@@ -14,10 +15,12 @@ function save(j) {
   localStorage.setItem(LS.tok, JSON.stringify({
     access: j.access_token,
     refresh: j.refresh_token || old.refresh,
+    v: SCOPE_V,
     exp: Date.now() + (j.expires_in - 60) * 1000
   }));
 }
-export const isConnected = () => !!tokens();
+export const isConnected = () => { const t = tokens(); return !!t && t.v === SCOPE_V; };
+export const needsReconnect = () => { const t = tokens(); return !!t && t.v !== SCOPE_V; };
 export function disconnect() { localStorage.removeItem(LS.tok); }
 
 export async function login() {

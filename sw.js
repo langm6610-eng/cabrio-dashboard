@@ -1,4 +1,4 @@
-const CACHE = 'cabrio-v2';
+const CACHE = 'cabrio-v4';
 const FILES = ['./', 'index.html', 'manifest.json', 'style.css', 'app.js', 'map.js', 'config.js', 'music.js', 'spotify.js'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));

@@ -10,6 +10,7 @@ function setView(v) {
   document.querySelectorAll('.nbtn').forEach(b => b.classList.toggle('on', b.dataset.view === v));
   try { localStorage.setItem('view', v); } catch (e) {}
   requestAnimationFrame(() => requestAnimationFrame(resizeMap));
+  window.dispatchEvent(new CustomEvent('viewchange', { detail: v }));
 }
 document.querySelectorAll('.nbtn').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
 let saved = 'dashboard';

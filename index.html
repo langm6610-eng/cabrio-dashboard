@@ -28,6 +28,9 @@
   <symbol id="i-dash" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM12 4v16"/></symbol>
   <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8z"/></symbol>
   <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
 </svg>
 
 <div id="app" data-view="dashboard">
@@ -51,6 +54,8 @@
     </section>
 
     <section id="music-panel" class="panel">
+      <button class="rbtn lists" id="b-lists" aria-label="Playlists" disabled><svg class="s"><use href="#i-list"/></svg></button>
+      <div class="mp-now">
       <div class="music-art">
         <div class="cover" id="cover"><svg class="s big"><use href="#i-music"/></svg></div>
       </div>
@@ -81,6 +86,12 @@
           <button class="row" id="sp-disconnect"><span>Spotify</span><b>Verbindung trennen</b></button>
         </div>
       </div>
+      <div class="swipehint"><svg class="s"><use href="#i-up"/></svg>Playlists</div>
+      </div>
+      <div class="mp-lists">
+        <div class="mp-head"><h2>Meine Playlists</h2><button class="pill sm ghost" id="mp-back">Wiedergabe</button></div>
+        <div id="mp-slot"></div>
+      </div>
       <div id="dev-sheet" class="overlay" hidden>
         <div class="sheet">
           <h3>Wiedergabegerät</h3>
@@ -97,6 +108,19 @@
     <button class="nbtn" data-view="karte"><svg class="s"><use href="#i-map"/></svg><span>Karte</span></button>
     <button class="nbtn" data-view="musik"><svg class="s"><use href="#i-music"/></svg><span>Musik</span></button>
   </nav>
+</div>
+
+<div id="pl-sheet" class="fullsheet" hidden>
+  <div class="fs-head"><h2>Meine Playlists</h2><button class="pill sm" id="pl-close">Fertig</button></div>
+  <div class="fs-body" id="pl-fs">
+    <div id="pl-body">
+    <div id="pl-msg" hidden>
+      <span>Kein Wiedergabegerät gefunden. Öffne Spotify auf dem iPhone und starte kurz einen Titel. Danach kannst du hier direkt starten.</span>
+      <button class="pill sm" id="pl-open">Spotify öffnen</button>
+    </div>
+    <div id="pl-grid"></div>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
