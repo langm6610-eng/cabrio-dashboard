@@ -1,4 +1,5 @@
 import { initMap, startGps, stopGps, resizeMap } from './map.js';
+import { init as initMusic } from './music.js';
 
 const app = document.getElementById('app');
 const VIEWS = ['dashboard', 'karte', 'musik'];
@@ -17,6 +18,7 @@ setView(saved);
 
 initMap();
 startGps();
+initMusic();
 
 // Display wach halten (iOS 16.4+; endet beim App-Wechsel, wird automatisch erneuert)
 let lock = null;
